@@ -1,4 +1,4 @@
-# quando_local
+# Quando <//> Local
 Local support for Quando
 
 Python based tools to allow Quando to run easily on Desktop (and Mobile).
