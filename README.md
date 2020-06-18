@@ -11,6 +11,10 @@ Currently local support will offer:
 * code for devices
 * **Experimental** access to mouse and keyboard control (disabled by default)
 
-## Getting Nitrite
+## Getting Nitrite - nosql local database
 
 Downloaded the jar from https://mvnrepository.com/artifact/org.dizitart/nitrite/3.4.1
+
+## Getting Key Master - grab global hotkeys
+
+Downloaded jar from https://mvnrepository.com/artifact/com.github.tulskiy/jkeymaster/1.2
