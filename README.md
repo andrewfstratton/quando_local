@@ -1,11 +1,12 @@
 # Quando <//> Local
 Local support for Quando
 
-Python based tools to allow Quando to run easily on Desktop (and Mobile).
+Java based tools to allow Quando to run local access to devices and some platform behaviour.
 
-N.B. This depends on Quando and will not be useful otherwise.
+Note: This will not be useful without Quando.
 
-Currently local supprot is purely to offer:
-* micro:bit access through USB (serial) plugin and running a local server on port 8080 which can be accessed 9to be tested) by the local browser (typically only)
-* Other serial/USB connections - e.g. ESP32
-* (maybe) local file access for caching
+Currently local support will offer:
+* a local server running on port 8080 when the jarfile is executed
+* Access to micro:bit and other usb devices from the local machine
+* code for devices
+* **Experimental** access to mouse and keyboard control (disabled by default)
