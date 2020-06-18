@@ -10,3 +10,7 @@ Currently local support will offer:
 * Access to micro:bit and other usb devices from the local machine
 * code for devices
 * **Experimental** access to mouse and keyboard control (disabled by default)
+
+## Getting Nitrite
+
+Downloaded the jar from https://mvnrepository.com/artifact/org.dizitart/nitrite/3.4.1
