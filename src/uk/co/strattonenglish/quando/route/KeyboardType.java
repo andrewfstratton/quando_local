@@ -2,8 +2,8 @@ package uk.co.strattonenglish.quando.route;
 
 import java.io.IOException;
 
-import uk.co.strattonenglish.quando.device.KeyControl;
-import uk.co.strattonenglish.quando.device.LocalControl;
+import uk.co.strattonenglish.quando.device.control.KeyControl;
+import uk.co.strattonenglish.quando.device.Controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +12,7 @@ import org.json.JSONException;
 public class KeyboardType extends RESTRoute {
 	// REST access to controlling the keyboard and mouse on the local machine
 	// Note: the factory should return a dummy KeyControl for servers
-	private static KeyControl keyControl = LocalControl.getKeyControl();
+	private static KeyControl keyControl = Controllers.getKeyControl();
 
 	@Override
 	public String handle_REST(HttpServletRequest request) throws IOException {

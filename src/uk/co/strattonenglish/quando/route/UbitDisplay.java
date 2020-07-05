@@ -1,19 +1,16 @@
 package uk.co.strattonenglish.quando.route;
 
-import uk.co.strattonenglish.quando.device.UbitControl;
-
+import uk.co.strattonenglish.quando.device.control.UbitControl;
+import uk.co.strattonenglish.quando.device.Controllers;
 import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.json.JSONException;
 
-import uk.co.strattonenglish.quando.device.LocalControl;
 
 public class UbitDisplay extends RESTRoute {
 	// REST access to control a micro bit on the local machine though serial port
 	// Note: the factory should return a dummy UbitControl for servers
-	private static UbitControl ubitControl = LocalControl.getUbitControl();
+	private static UbitControl ubitControl = Controllers.getUbitControl();
 
 	@Override
 	public String handle_REST(HttpServletRequest request) throws IOException {

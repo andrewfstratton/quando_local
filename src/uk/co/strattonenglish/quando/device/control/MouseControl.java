@@ -1,11 +1,13 @@
-package uk.co.strattonenglish.quando.device;
+package uk.co.strattonenglish.quando.device.control;
 import java.awt.Dimension;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
 import java.awt.event.InputEvent;
 
-public class MouseControl extends LocalControl {
+import uk.co.strattonenglish.quando.device.Controllers;
+
+public class MouseControl extends Controllers {
 	private int screenWidth;
 	private int screenHeight;
 	private int button_mask = 0;

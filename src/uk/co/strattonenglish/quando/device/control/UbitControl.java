@@ -1,8 +1,10 @@
-package uk.co.strattonenglish.quando.device;
+package uk.co.strattonenglish.quando.device.control;
 
 import com.fazecast.jSerialComm.SerialPort;
 
-public class UbitControl  extends LocalControl {
+import uk.co.strattonenglish.quando.device.Controllers;
+
+public class UbitControl  extends Controllers {
 	// For controlling a micro:bit through the serial port on the local machine
 
 	private SerialPort getSerialPort() {

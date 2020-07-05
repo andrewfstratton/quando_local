@@ -12,7 +12,8 @@ public class Home extends Route {
 	public void handle(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		// TODO Implement local server info page
-		// This could, when accessed from the same machine, provide a dashboard for enabling keyboard/mouse control, etc.
+		// This could, when accessed from the same machine, provide a dashboard for enabling
+		// keyboard/mouse control, ?QRCode/IP for connection?, etc.
         response.setContentType("text/html; charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
 

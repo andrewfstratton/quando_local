@@ -1,9 +1,10 @@
 package uk.co.strattonenglish.quando.device;
 
+import uk.co.strattonenglish.quando.device.control.*;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-public abstract class LocalControl {
+public abstract class Controllers {
 	static protected Robot robot;
 	static private KeyControl keyControl;
 	static private MouseControl mouseControl;

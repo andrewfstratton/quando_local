@@ -2,8 +2,8 @@ package uk.co.strattonenglish.quando.route;
 
 import java.io.IOException;
 
-import uk.co.strattonenglish.quando.device.MouseControl;
-import uk.co.strattonenglish.quando.device.LocalControl;
+import uk.co.strattonenglish.quando.device.control.MouseControl;
+import uk.co.strattonenglish.quando.device.Controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +12,7 @@ import org.json.JSONException;
 public class Mouse extends RESTRoute {
 	// REST access to controlling the mouse on the local machine
 	// Note: the factory should return a dummy MouseControl for servers
-	private static MouseControl mouseControl = LocalControl.getMouseControl();
+	private static MouseControl mouseControl = Controllers.getMouseControl();
 
 	@Override
 	public String handle_REST(HttpServletRequest request) throws IOException {

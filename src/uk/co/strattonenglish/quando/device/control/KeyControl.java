@@ -1,9 +1,10 @@
-package uk.co.strattonenglish.quando.device;
+package uk.co.strattonenglish.quando.device.control;
 
+import uk.co.strattonenglish.quando.device.Controllers;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
-public class KeyControl extends LocalControl {
+public class KeyControl extends Controllers {
 	// For controlling the keyboard on the local machine
 	
 	// Default time between press and release (to type) is 50ms, i.e. ~20 char/second, ~240 wpm
