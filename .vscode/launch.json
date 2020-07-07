@@ -6,16 +6,23 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CodeLens (Launch) - LocalServer",
+      "request": "launch",
+      "mainClass": "uk.co.strattonenglish.quando.LocalServer",
+      "projectName": "quando"
+    },
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - App",
+      "request": "launch",
+      "mainClass": "uk.co.strattonenglish.quando.App",
+      "projectName": "quando"
+    },
+    {
+      "type": "java",
       "name": "Debug (Launch) - Current File",
       "request": "launch",
       "mainClass": "${file}"
     },
-    {
-      "type": "java",
-      "name": "Debug (Launch)-LocalServer<quando_local_2037359c>",
-      "request": "launch",
-      "mainClass": "uk.co.strattonenglish.quando.LocalServer",
-      "projectName": "quando_local_2037359c"
-    }
   ]
 }
