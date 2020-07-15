@@ -25,12 +25,14 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
     <!-- https://mvnrepository.com/artifact/com.github.tulskiy/jkeymaster -->
     <dependency>
         <groupId>com.github.tulskiy</groupId>
         <artifactId>jkeymaster</artifactId>
         <version>1.2</version>
     </dependency>
+
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
     <dependency>
         <groupId>javax.servlet</groupId>
@@ -51,15 +53,19 @@
         <artifactId>jetty-server</artifactId>
         <version>9.4.30.v20200611</version>
     </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty.aggregate/jetty-all -->
+    <!-- https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server -->
     <dependency>
-        <groupId>org.eclipse.jetty.aggregate</groupId>
-        <artifactId>jetty-all</artifactId>
+        <groupId>org.eclipse.jetty.websocket</groupId>
+        <artifactId>websocket-server</artifactId>
         <version>9.4.30.v20200611</version>
-        <type>pom</type>
-        <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/javax-websocket-server-impl -->
+    <dependency>
+        <groupId>org.eclipse.jetty.websocket</groupId>
+        <artifactId>javax-websocket-server-impl</artifactId>
+        <version>9.4.30.v20200611</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/com.fazecast/jSerialComm -->
     <dependency>
         <groupId>com.fazecast</groupId>
