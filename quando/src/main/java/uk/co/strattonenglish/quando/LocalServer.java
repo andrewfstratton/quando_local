@@ -16,7 +16,7 @@ public class LocalServer {
 	public static class LocalServerSocketCreator implements WebSocketCreator {
 		@Override
 		public Object createWebSocket(ServletUpgradeRequest req, ServletUpgradeResponse resp) {
-			return new LocalWebSocketHandler();
+			return new WebSocketHandler();
 		}
 	}
 
@@ -31,17 +31,14 @@ public class LocalServer {
 		WebSocketUpgradeFilter websocketfilter;
 		try {
 			websocketfilter = WebSocketUpgradeFilter.configure(context);
-		// wsfilter.getFactory().getPolicy().setIdleTimeout(5000);
-		websocketfilter.addMapping(new ServletPathSpec("/ws/"), new LocalServerSocketCreator());
+			// wsfilter.getFactory().getPolicy().setIdleTimeout(5000);
+			websocketfilter.addMapping(new ServletPathSpec("/ws/*"), new LocalServerSocketCreator());
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		// Add time servlet
-		// context.addServlet(WebSocketServlet.class,"/ws/*");
-
-		context.addServlet(LocalhostHandler.class,"/*");
+		context.addServlet(ServletHandler.class,"/*");
 		return server;
 	}
 

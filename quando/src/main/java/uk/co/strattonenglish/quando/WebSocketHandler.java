@@ -8,7 +8,7 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 @WebSocket
-public class LocalWebSocketHandler implements Runnable {
+public class WebSocketHandler implements Runnable {
     private Session session;
 
     @OnWebSocketMessage

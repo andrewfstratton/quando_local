@@ -8,6 +8,7 @@ import uk.co.strattonenglish.quando.device.Controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONException;
+import uk.co.strattonenglish.quando.common.JSON;
 
 public class Mouse extends RESTRoute {
 	// REST access to controlling the mouse on the local machine
@@ -21,17 +22,17 @@ public class Mouse extends RESTRoute {
 			result.append("{'error':'cloud deploy'}");
 		} else {
 			try {
-				setJSONObjectOnRequest(request);
-				setJSONObjectOnKey("val");
+				JSON jso = new JSON(request);
+				jso = jso.createOnKey("val");
 
-				float x_val = getJSONFloat("x", -1);
-				float y_val = getJSONFloat("y", -1);
+				float x_val = jso.getFloat("x", -1);
+				float y_val = jso.getFloat("y", -1);
 				if (x_val >= 0 || y_val >= 0) { // i.e. one or both of x and y have been given
 					mouseControl.moveXYVal(x_val, y_val);
 				}
-				int left = getJSONInteger("left", 0);
-				int right = getJSONInteger("right", 0);
-				int middle = getJSONInteger("middle", 0);
+				int left = jso.getInteger("left", 0);
+				int right = jso.getInteger("right", 0);
+				int middle = jso.getInteger("middle", 0);
 
 				if (left != 0) { // -1 is release, 1 is press
 					if (left == 1) {

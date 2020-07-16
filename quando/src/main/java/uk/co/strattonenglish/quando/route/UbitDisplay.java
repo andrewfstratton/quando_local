@@ -5,6 +5,7 @@ import uk.co.strattonenglish.quando.device.Controllers;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import org.json.JSONException;
+import uk.co.strattonenglish.quando.common.JSON;
 
 
 public class UbitDisplay extends RESTRoute {
@@ -16,8 +17,8 @@ public class UbitDisplay extends RESTRoute {
 	public String handle_REST(HttpServletRequest request) throws IOException {
 		StringBuffer result = new StringBuffer();
 		try {
-			setJSONObjectOnRequest(request);
-			String val = getJSONString("val");
+			JSON jso = new JSON(request);
+			String val = jso.getString("val");
 
 			if (val != null) {
 				ubitControl.display(val);

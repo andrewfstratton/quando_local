@@ -13,7 +13,7 @@ import uk.co.strattonenglish.quando.route.*;
 // This class encompasses localhost handling that requires access to the platform, including
 // serial port and platform keyboard and mouse control (java.awt.Robot)
 
-public class LocalhostHandler extends HttpServlet {
+public class ServletHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final HashMap<String, Route> routes = new HashMap<>();
 	static {

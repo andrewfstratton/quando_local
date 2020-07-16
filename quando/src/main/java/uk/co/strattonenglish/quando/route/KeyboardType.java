@@ -8,6 +8,7 @@ import uk.co.strattonenglish.quando.device.Controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONException;
+import uk.co.strattonenglish.quando.common.JSON;
 
 public class KeyboardType extends RESTRoute {
 	// REST access to controlling the keyboard and mouse on the local machine
@@ -21,8 +22,8 @@ public class KeyboardType extends RESTRoute {
 			result.append("{'error':'cloud deploy'}");
 		} else {
 			try {
-				setJSONObjectOnRequest(request);
-				String val = getJSONString("val");
+				JSON jso = new JSON(request);
+				String val = jso.getString("val");
 
 				if (val != null) {
 					for (char ch : val.toCharArray()) {

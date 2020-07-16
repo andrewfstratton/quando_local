@@ -15,7 +15,7 @@ public abstract class Controllers {
 			keyControl = new KeyControl();
 			mouseControl = new MouseControl();
 			ubitControl = new UbitControl();
-		} catch (AWTException e1) { // TODO should detect when in cloud
+		} catch (AWTException e1) {
 			System.out.println("Warning - Local Control threw exception - ignored from now");
 		}
 	}

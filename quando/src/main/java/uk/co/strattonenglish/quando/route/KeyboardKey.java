@@ -9,6 +9,7 @@ import uk.co.strattonenglish.quando.device.Controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONException;
+import uk.co.strattonenglish.quando.common.JSON;
 
 public class KeyboardKey extends RESTRoute {
 	// REST access to controlling the keyboard and mouse on the local machine
@@ -22,15 +23,15 @@ public class KeyboardKey extends RESTRoute {
 			result.append("{'error':'cloud deploy'}");
 		} else {
 			try {
-				setJSONObjectOnRequest(request);
-				setJSONObjectOnKey("val");
+				JSON jso = new JSON(request);
+				jso = jso.createOnKey("val");
 
-				String key = getJSONString("key");
-				boolean press = getJSONBoolean("press", false);
-				boolean shift = getJSONBoolean("shift", false);
-				boolean ctrl = getJSONBoolean("ctrl", false);
-				boolean alt = getJSONBoolean("alt", false);
-				boolean command = getJSONBoolean("command", false);
+				String key = jso.getString("key");
+				boolean press = jso.getBoolean("press", false);
+				boolean shift = jso.getBoolean("shift", false);
+				boolean ctrl = jso.getBoolean("ctrl", false);
+				boolean alt = jso.getBoolean("alt", false);
+				boolean command = jso.getBoolean("command", false);
 
 				if (shift) {
 					keyControl.pressKeyCode(KeyEvent.VK_SHIFT);
