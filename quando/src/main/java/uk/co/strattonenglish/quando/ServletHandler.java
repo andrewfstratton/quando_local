@@ -1,6 +1,10 @@
 package uk.co.strattonenglish.quando;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -15,6 +19,7 @@ import uk.co.strattonenglish.quando.route.*;
 
 public class ServletHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String serverURL = "quando.eu-gb.mybluemix.net";
 	private static final HashMap<String, Route> routes = new HashMap<>();
 	static {
 		routes.put("/", new Home());
@@ -26,10 +31,30 @@ public class ServletHandler extends HttpServlet {
 	private static final Route unknown = new Unknown();
 
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-		throws IOException, ServletException
-	{
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String target = request.getRequestURI();
 		routes.getOrDefault(target, unknown).handle(request, response);
+	}
+
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		String target = request.getRequestURI();
+		System.out.print("GET:" + target);
+		HttpURLConnection connection = (HttpURLConnection) new URL("https", serverURL, target).openConnection();
+		System.out.print("/" + connection.getResponseCode());
+		response.setStatus(connection.getResponseCode());
+		try (InputStream in = connection.getInputStream()) {
+			byte[] buffer = new byte[4096];
+			int bytes = -1;
+			OutputStream out = response.getOutputStream();
+			while ((bytes = in.read(buffer)) != -1) {
+				out.write(buffer, 0, bytes);
+			}
+			System.out.print("/" + connection.getContentType());
+			response.setContentType(connection.getContentType());
+		} catch (IOException ioe) {
+			ioe.printStackTrace(System.err);
+		}
+		System.out.println();
 	}
 }
