@@ -10,6 +10,8 @@ import org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest;
 import org.eclipse.jetty.websocket.servlet.ServletUpgradeResponse;
 import org.eclipse.jetty.websocket.servlet.WebSocketCreator;
 
+import uk.co.strattonenglish.quando.device.Handlers;
+
 public class LocalServer {
 	private static final int SERVER_PORT = 8080;
 
@@ -23,22 +25,22 @@ public class LocalServer {
 	private static Server createServer(int port) {
 		Server server = new Server(port);
 
-		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		context.setContextPath("/");
-		server.setHandler(context);
+		ServletContextHandler servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		servletHandler.setContextPath("/");
+		server.setHandler(servletHandler);
 
 		// Add websocket as a filter
 		WebSocketUpgradeFilter websocketfilter;
 		try {
-			websocketfilter = WebSocketUpgradeFilter.configure(context);
+			websocketfilter = WebSocketUpgradeFilter.configure(servletHandler);
 			// wsfilter.getFactory().getPolicy().setIdleTimeout(5000);
 			websocketfilter.addMapping(new ServletPathSpec("/ws/*"), new LocalServerSocketCreator());
+			Handlers.getUbitHandler().handle();
 		} catch (ServletException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		context.addServlet(ServletHandler.class,"/*");
+		servletHandler.addServlet(ServletHandler.class,"/*");
 		return server;
 	}
 

@@ -3,27 +3,18 @@ package uk.co.strattonenglish.quando.device.control;
 import com.fazecast.jSerialComm.SerialPort;
 
 import uk.co.strattonenglish.quando.device.Controllers;
+import uk.co.strattonenglish.quando.common.USBSerial;
 
-public class UbitControl  extends Controllers {
+public class UbitControl extends Controllers {
 	// For controlling a micro:bit through the serial port on the local machine
 
-	private SerialPort getSerialPort() {
-		SerialPort result = null;
-
-		for (SerialPort sp : SerialPort.getCommPorts()) {
-			if (sp.getPortDescription().equals("mbed Serial Port")) {
-				result = sp;
-				break;
-			}
-		}
-		return result;
-	}
-
 	public void display(String str) {
-		SerialPort sp = getSerialPort();
+		SerialPort sp = USBSerial.getSerialPort("mbed Serial Port");
 		if (sp != null) {
-			System.out.println("** Ubit **: '" + str + "'" + sp.getSystemPortName());
-			// TODO implement display on ubit
+			String msg = "D=" + str + "\r\n";
+			System.out.println("** Ubit **: '" + msg + "'" + sp.getSystemPortName());
+			byte[] buf = msg.getBytes();
+			sp.writeBytes(buf, (long) buf.length);
 		} else {
 			System.out.println("No micro:bit found");
 		}

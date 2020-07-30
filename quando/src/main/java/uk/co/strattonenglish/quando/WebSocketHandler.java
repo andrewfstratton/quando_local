@@ -10,16 +10,18 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 @WebSocket
 public class WebSocketHandler implements Runnable {
     private Session session;
+    int count = 0;
 
     @OnWebSocketMessage
     public void onMessage(Session session, String message)
     {
-      System.out.println(message);
+      System.out.println(message + ":" + count);
     }
 
     @OnWebSocketConnect
     public void onOpen(Session session)
     {
+      System.out.println("Open:" + count);
         this.session = session;
         new Thread(this).start();
     }
@@ -27,18 +29,22 @@ public class WebSocketHandler implements Runnable {
     @OnWebSocketClose
     public void onClose(int closeCode, String closeReasonPhrase)
     {
+      System.out.println("Close:" + count);
         this.session = null;
     }
 
     @Override
     public void run()
     {
-      int count = 0;
       while (this.session != null)
       {
         try {
           this.session.getRemote().sendString(String.valueOf(++count));
+          Thread.sleep(1000);
         } catch (IOException e) {
+          e.printStackTrace();
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
           e.printStackTrace();
         }
       }

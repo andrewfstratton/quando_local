@@ -1,5 +1,6 @@
 package uk.co.strattonenglish.quando;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,9 +40,9 @@ public class ServletHandler extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String target = request.getRequestURI();
-		System.out.print("GET:" + target);
+		String message = "GET:" + target;
 		HttpURLConnection connection = (HttpURLConnection) new URL("https", serverURL, target).openConnection();
-		System.out.print("/" + connection.getResponseCode());
+		message += "/" + connection.getResponseCode();
 		response.setStatus(connection.getResponseCode());
 		try (InputStream in = connection.getInputStream()) {
 			byte[] buffer = new byte[4096];
@@ -50,11 +51,12 @@ public class ServletHandler extends HttpServlet {
 			while ((bytes = in.read(buffer)) != -1) {
 				out.write(buffer, 0, bytes);
 			}
-			System.out.print("/" + connection.getContentType());
+			message += "/" + connection.getContentType();
 			response.setContentType(connection.getContentType());
+		} catch (FileNotFoundException ex) {
 		} catch (IOException ioe) {
 			ioe.printStackTrace(System.err);
 		}
-		System.out.println();
+		System.out.println(message);
 	}
 }

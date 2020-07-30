@@ -59,7 +59,7 @@ public class KeyboardKey extends RESTRoute {
 					keyControl.releaseKeyCode(KeyEvent.VK_SHIFT);
 				}
 
-				System.out.println("handled by Control Key Route");
+				// System.out.println("handled by Control Key Route");
 				result.append("{}");
 			} catch (JSONException ex) {
 				System.out.println("Malformed JSON received");
