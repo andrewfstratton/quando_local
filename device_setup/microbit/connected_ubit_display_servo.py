@@ -65,7 +65,11 @@ def go():
                     if key == "D":
                         display.scroll(val, wait=False)
                     elif key == "I":
-                        display.show(icons[int(val)])
+                        val = int(val)
+                        if val == 0:
+                            display.show(' ')
+                        else:
+                            display.show(icons[val-1])
                     elif key == "T":
                         comma = val.find(",")
                         angle = int(val[:comma])

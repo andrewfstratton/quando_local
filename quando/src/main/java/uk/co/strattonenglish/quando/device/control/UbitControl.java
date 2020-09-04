@@ -9,11 +9,10 @@ import uk.co.strattonenglish.quando.common.USBSerial;
 
 public class UbitControl extends Controllers {
 	// For controlling a micro:bit through the serial port on the local machine
-
-	public void display(String str) {
+	private void send(String prefix, String str) {
 		SerialPort sp = USBSerial.getSerialPort("mbed Serial Port");
 		if (sp != null) {
-			String msg = "D=" + str + "\n";
+			String msg = prefix + str + "\n";
 			byte[] buf;
 			try {
 				buf = msg.getBytes("UTF-8");
@@ -22,8 +21,14 @@ public class UbitControl extends Controllers {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("No micro:bit found");
 		}
+	}
+
+	public void display(String str) {
+		send("D=", str);
+	}
+
+	public void icon(int index) {
+		send("I=", Integer.toString(index));
 	}
 }
