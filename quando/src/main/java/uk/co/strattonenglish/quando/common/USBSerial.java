@@ -8,8 +8,7 @@ public final class USBSerial {
 
 	public static final SerialPort getSerialPort(String description) {
 
-		if ((last != null) && (last.isOpen())) {
-		} else {
+		if ((last == null) || (!last.isOpen())) {
 			for (SerialPort sp : SerialPort.getCommPorts()) {
 				if (sp.getPortDescription().equals("mbed Serial Port")) {
 					sp.setComPortParameters(115200, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
@@ -21,7 +20,6 @@ public final class USBSerial {
 				}
 			}
 		}
-		System.out.println(last.isOpen());
 		return last;
 	}
 

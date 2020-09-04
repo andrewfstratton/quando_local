@@ -47,34 +47,40 @@ class Servo:
 
 
 def go():
-    print('{"device":"ubit", "script":"servo"}')
     pins = [pin0, pin1, pin2]
     icons = [Image.HAPPY, Image.SAD]
+    val = ''
     while True:
-        if uart.any():
-            try:
-                x = str(uart.readline(), "utf-8")[:-1]
-                eq = x.find("=")
-                key = x[:eq]
-                val = x[eq + 1 :]
-                if key == "D":
-                    display.scroll(val, wait=False)
-                elif key == "I":
-                    display.show(icons[int(val)])
-                elif key == "T":
-                    comma = val.find(",")
-                    angle = int(val[:comma])
-                    servo = int(val[comma + 1 :])
-                    if angle > 0 and servo > 0:
-                        Servo(pins[servo - 1]).write_angle(angle - 1)
-            except Exception as ex:
-                print('{"message":"Exception:' + str(ex) + '"}')
+        try:
+            b = uart.read(1)
+            if b != None:
+                ch = str(b, 'UTF-8')
+                if ch != '\n':
+                    val += ch
+                else:
+#                    print(val)
+                    eq = val.find("=")
+                    key = val[:eq]
+                    val = val[eq + 1 :]
+                    if key == "D":
+                        display.scroll(val, wait=False)
+                    elif key == "I":
+                        display.show(icons[int(val)])
+                    elif key == "T":
+                        comma = val.find(",")
+                        angle = int(val[:comma])
+                        servo = int(val[comma + 1 :])
+                        if angle > 0 and servo > 0:
+                            Servo(pins[servo - 1]).write_angle(angle - 1)
+                    val =''
+        except Exception as ex:
+            print('{"message":"Exception:' + str(ex) + '"}')
     # Never finish...
 
 
+uart.init(115200,8,None,1)
 print('{"started":true}')
 image = Image("88000:80808:80800:80808:88000")
-uart.init(115200,8,None,1)
 display.show(image)
 sleep(750)
 display.clear()
