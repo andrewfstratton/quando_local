@@ -1,5 +1,7 @@
 package uk.co.strattonenglish.quando.device.control;
 
+import java.io.UnsupportedEncodingException;
+
 import com.fazecast.jSerialComm.SerialPort;
 
 import uk.co.strattonenglish.quando.device.Controllers;
@@ -11,10 +13,15 @@ public class UbitControl extends Controllers {
 	public void display(String str) {
 		SerialPort sp = USBSerial.getSerialPort("mbed Serial Port");
 		if (sp != null) {
-			String msg = "D=" + str + "\r\n";
-			System.out.println("** Ubit **: '" + msg + "'" + sp.getSystemPortName());
-			byte[] buf = msg.getBytes();
-			sp.writeBytes(buf, (long) buf.length);
+			String msg = "D=" + str + "\n";
+			byte[] buf;
+			try {
+				buf = msg.getBytes("UTF-8");
+				int sent = sp.writeBytes(buf, (long) buf.length);
+				System.out.println("** Ubit **: sent("+sent+")'" + msg + "'" + sp.getSystemPortName());
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		} else {
 			System.out.println("No micro:bit found");
 		}

@@ -25,12 +25,24 @@ public class JSON {
     object = new JSONObject(buffer.toString());
   }
     
+  public JSON(String str) {
+    object = new JSONObject(str);
+  }
+    
   public JSON createOnKey(String key) {
     return new JSON(object.getJSONObject(key));
   }
     
   public String getString(String key) {
     return object.getString(key);
+  }
+    
+  public String getString(String key, String null_value) {
+    String result = null_value;
+    if (object.has(key)) {
+      result = object.getString(key);
+    }
+    return result;
   }
     
   public int getInteger(String key, int null_value) {

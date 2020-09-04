@@ -72,4 +72,10 @@ def go():
     # Never finish...
 
 
+print('{"started":true}')
+image = Image("88000:80808:80800:80808:88000")
+uart.init(115200,8,None,1)
+display.show(image)
+sleep(750)
+display.clear()
 go()
