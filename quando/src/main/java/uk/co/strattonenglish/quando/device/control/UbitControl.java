@@ -31,4 +31,10 @@ public class UbitControl extends Controllers {
 	public void icon(int index) {
 		send("I=", Integer.toString(index));
 	}
+
+	public void servo(int servo, int angle) {
+		// Already in degrees and has had 360, or 1 for servo, added - so python will get 0 if the string is corrupt
+		String msg = Integer.toString(angle) + "," + Integer.toString(servo);
+		send("T=", msg);
+	}
 }

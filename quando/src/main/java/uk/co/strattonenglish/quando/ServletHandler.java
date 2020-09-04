@@ -29,6 +29,7 @@ public class ServletHandler extends HttpServlet {
 		routes.put("/control/mouse", new Mouse());
 		routes.put("/ubit/display", new UbitDisplay());
 		routes.put("/ubit/icon", new UbitShowIcon());
+		routes.put("/ubit/turn", new UbitServo());
 	}
 	private static final Route unknown = new Unknown();
 

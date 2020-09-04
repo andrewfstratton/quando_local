@@ -33,7 +33,7 @@ class Servo:
     def write_us(self, us):
         us = min(self.max_us, max(self.min_us, us))
         duty = round(us * 1024 * self.freq // 1000000)
-        print('{"message":"duty=' + str(duty) + '"}')
+#        print('{"message":"duty=' + str(duty) + '"}')
         self.pin.write_analog(duty)
 
     #        sleep(50)
@@ -74,8 +74,9 @@ def go():
                         comma = val.find(",")
                         angle = int(val[:comma])
                         servo = int(val[comma + 1 :])
+                        # angle has had 360 added, so 0 is an error
                         if angle > 0 and servo > 0:
-                            Servo(pins[servo - 1]).write_angle(angle - 1)
+                            Servo(pins[servo - 1]).write_angle(angle-360)
                     val =''
         except Exception as ex:
             print('{"message":"Exception:' + str(ex) + '"}')
