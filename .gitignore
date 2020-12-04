@@ -1,3 +1,4 @@
 quando-java.code-workspace
 target
 .settings
+.vscode/settings.json

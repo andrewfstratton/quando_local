@@ -10,5 +10,5 @@ Local support will offer:
 * a local server running on port 8080 when the jarfile is executed
 * Access to micro:bit and other usb devices from the local machine
 * Install code for devices
-* **Experimental** access to mouse and keyboard control (to be disabled by default)
-* **Experimental** global capture of keyboard (to be disabled by default)
+* **Experimental** access to mouse and keyboard control (will be disabled by default)
+* **Experimental** global capture of keyboard (will be disabled by default)
