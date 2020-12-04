@@ -2,10 +2,8 @@ import math
 from microbit import *
 
 class COMMS: # character, json
-    HEADING = 'H'
-    ROLL_PITCH = 'R'
-    BUTTON_A = ('a', '{"button_a":true}')
-    BUTTON_B = ('b', '{"button_b":true}')
+    BUTTON_A = ('a', '{"Ba":true}')
+    BUTTON_B = ('b', '{"Bb":true}')
 
 def roll_pitch_heading():
     last_tilt = False
@@ -20,12 +18,9 @@ def roll_pitch_heading():
         elif button_b.was_pressed():
             print(COMMS.BUTTON_B[1])
         heading = compass.heading()
-        if (heading != last_heading) :
-            print('{"heading":'+str(heading)+'}')
-            sleep(20)
+        if (heading != last_heading):
             last_heading = heading
-            needle = ((15 - heading)//30)%12
-            display.show(Image.ALL_CLOCKS[needle])
+            print('{"He":'+str(heading)+'}') # sent as degrees from 0 to 360
         display.show(' ')
         x = accelerometer.get_x()/1024
         y = accelerometer.get_y()/1024
@@ -33,9 +28,13 @@ def roll_pitch_heading():
         roll = math.pi-(math.atan2(x, z)%(math.pi*2))
         pitch = math.pi-(math.atan2(y, z)%(math.pi*2))
         if roll != last_roll or pitch != last_pitch:
-            print('{"roll_pitch":['+str(roll)+','+str(pitch)+']}')
-            last_roll = roll
+            if roll != last_roll:
+                print('{"Ro":'+str(roll)+'}') # sent as radians
+            if pitch != last_pitch:
+                print('{"Pi":'+str(pitch)+'}') # sent as radians
             last_pitch = pitch
+            last_roll = roll
+            sleep(20)
             display.show('+')
             sleep(10)
             display.show('-')

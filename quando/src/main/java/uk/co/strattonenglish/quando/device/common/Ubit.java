@@ -45,7 +45,10 @@ public class Ubit {
       serialPort = USBSerial.getSerialPort("mbed Serial Port");
     }
     if ((serialPort != null) && (in == null)) { // i.e. port hasn't been opened successfully
-      if (serialPort.openPort()) {
+      if (!serialPort.isOpen()) {
+        serialPort.openPort();
+      }
+      if (serialPort.isOpen()) {
         log.onState("micro:bit connected...", CONNECTED);
         in = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
       } else {
