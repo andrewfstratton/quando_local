@@ -3,14 +3,14 @@ from microbit import *
 
 class COMMS: # character, json
     IR = (Image.HEART, 'ir:true\n')
-    BUTTON_A = ('a', 'button_a:true\n')
-    BUTTON_B = ('b', 'button_b:true\n')
-    FACE_UP = ('^', 'orientation:"up"\n')
-    FACE_DOWN = ('v', 'orientation:"down"\n')
-    LEFT = ('<', 'orientation:"left"\n')
-    RIGHT = ('>', 'orientation:"right"\n')
-    UP = ('B', 'orientation:"backward"\n')
-    DOWN = ('F', 'orientation:"forward"\n')
+    BUTTON_A = ('a', 'Ba:true\n')
+    BUTTON_B = ('b', 'Bb:true\n')
+    FACE_UP = ('^', 'Or:"up"\n')
+    FACE_DOWN = ('v', 'Or:"down"\n')
+    LEFT = ('<', 'Or:"left"\n')
+    RIGHT = ('>', 'Or:"right"\n')
+    UP = ('B', 'Or:"backward"\n')
+    DOWN = ('F', 'Or:"forward"\n')
     arr = [IR, BUTTON_A, BUTTON_B, FACE_UP, FACE_DOWN, LEFT, RIGHT, UP, DOWN]
 
 def gesture():

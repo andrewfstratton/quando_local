@@ -43,7 +43,7 @@ public class UbitHandler extends Handlers implements Runnable {
 		try {
 			JSON jsin = new JSON(message);
 			JSONObject jsout = new JSONObject();
-			String orientation = jsin.getString("orientation", "");
+			String orientation = jsin.getString("Or", "");
 			putJSON(orientation != "", jsout, "orientation", orientation);
 			boolean btn_a = jsin.getBoolean("Ba", false);
 			boolean btn_b = jsin.getBoolean("Bb", false);
