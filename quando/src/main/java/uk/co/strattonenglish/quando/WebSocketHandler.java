@@ -11,32 +11,23 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 @WebSocket
-public class WebSocketHandler implements Runnable {
+public class WebSocketHandler {
   private Session session;
   private static List<Session> sessions = new ArrayList<Session>();
-  int count = 0;
-  private static Thread thread = null;
-
 
   @OnWebSocketMessage
   public void onMessage(Session session, String message) {
-    System.out.println(message + ":" + count);
+    System.out.println("Message:"+message);
   }
 
   @OnWebSocketConnect
   public void onOpen(Session session) {
-    System.out.println("Open:" + count);
     this.session = session;
     sessions.add(session);
-    if (thread == null) {
-      thread = new Thread(this);
-      thread.start();
-    }
   }
 
   @OnWebSocketClose
   public void onClose(int closeCode, String closeReasonPhrase) {
-    System.out.println("Close:" + count);
     sessions.remove(this.session);
     this.session = null;
   }
@@ -47,18 +38,6 @@ public class WebSocketHandler implements Runnable {
       try {
         session.getRemote().sendString(msg);
       } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-  }
-
-  @Override
-  public void run() {
-    while (true) {
-      try {
-        broadcast(String.valueOf(sessions.size()) + ":" + String.valueOf(++count));
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
         e.printStackTrace();
       }
     }
