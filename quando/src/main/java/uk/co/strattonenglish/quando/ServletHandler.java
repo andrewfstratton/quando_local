@@ -21,44 +21,51 @@ import uk.co.strattonenglish.quando.route.*;
 public class ServletHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String serverURL = "quando.eu-gb.mybluemix.net";
-	private static final HashMap<String, Route> routes = new HashMap<>();
+	private static final HashMap<String, Route> get = new HashMap<>();
 	static {
-		routes.put("/", new Home());
-		routes.put("/control/type", new KeyboardType());
-		routes.put("/control/key", new KeyboardKey());
-		routes.put("/control/mouse", new Mouse());
-		routes.put("/ubit/display", new UbitDisplay());
-		routes.put("/ubit/icon", new UbitShowIcon());
-		routes.put("/ubit/turn", new UbitServo());
+		get.put("/hub", new Home());
+	}
+	private static final HashMap<String, Route> post = new HashMap<>();
+	static {
+		post.put("/control/type", new KeyboardType());
+		post.put("/control/key", new KeyboardKey());
+		post.put("/control/mouse", new Mouse());
+		post.put("/ubit/display", new UbitDisplay());
+		post.put("/ubit/icon", new UbitShowIcon());
+		post.put("/ubit/turn", new UbitServo());
 	}
 	private static final Route unknown = new Unknown();
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String target = request.getRequestURI();
-		routes.getOrDefault(target, unknown).handle(request, response);
+		post.getOrDefault(target, unknown).handle(request, response);
 	}
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String target = request.getRequestURI();
-		String message = "GET:" + target;
-		HttpURLConnection connection = (HttpURLConnection) new URL("https", serverURL, target).openConnection();
-		message += "/" + connection.getResponseCode();
-		response.setStatus(connection.getResponseCode());
-		try (InputStream in = connection.getInputStream()) {
-			byte[] buffer = new byte[4096];
-			int bytes = -1;
-			OutputStream out = response.getOutputStream();
-			while ((bytes = in.read(buffer)) != -1) {
-				out.write(buffer, 0, bytes);
+		if (get.containsKey(target)) { // i.e. currently just for /hub
+			get.get(target).handle(request, response);
+		} else {
+			// String message = "GET:" + target;
+			HttpURLConnection connection = (HttpURLConnection) new URL("https", serverURL, target).openConnection();
+			// message += "/" + connection.getResponseCode();
+			response.setStatus(connection.getResponseCode());
+			try (InputStream in = connection.getInputStream()) {
+				byte[] buffer = new byte[4096];
+				int bytes = -1;
+				OutputStream out = response.getOutputStream();
+				while ((bytes = in.read(buffer)) != -1) {
+					out.write(buffer, 0, bytes);
+				}
+				// message += "/" + connection.getContentType();
+				response.setContentType(connection.getContentType());
+			} catch (FileNotFoundException ex) {
+			} catch (IOException ioe) {
+				ioe.printStackTrace(System.err);
 			}
-			message += "/" + connection.getContentType();
-			response.setContentType(connection.getContentType());
-		} catch (FileNotFoundException ex) {
-		} catch (IOException ioe) {
-			ioe.printStackTrace(System.err);
-		}
-		System.out.println(message);
+			// System.out.println(message);
+		} // else
 	}
 }
