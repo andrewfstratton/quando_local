@@ -34,9 +34,13 @@ public class WebSocketHandler {
 
   public static synchronized void broadcast(String msg) {
     // Note: synchronized is essential here to avoid runtime error
-    for (Session session : sessions) {
+    List<Session> list = new ArrayList<Session>(sessions);
+
+    for (Session session : list) {
       try {
-        session.getRemote().sendString(msg);
+        if (session != null) {
+          session.getRemote().sendString(msg);
+        }
       } catch (IOException e) {
         e.printStackTrace();
       }
